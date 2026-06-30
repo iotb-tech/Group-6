@@ -1,66 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Weather app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 0.6875rem; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
-<body>
 
-  Units
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-8">
+<div class="bg-[#0B0735] w-full max-w-6xl rounded-2xl shadow-2xl p-8 text-white">
+    <div class="flex justify-between items-center mb-10">
+        <h2 class="font-bold text-xl flex items-center gap-2">
+            <i class="fa-solid fa-sun text-yellow-400"></i>
+            Weather Now
+        </h2>
+        <button class="bg-[#1D1B4B] px-4 py-2 rounded-lg">
+            Units ▼
+        </button>
+    </div>
+    <h1 class="text-5xl font-bold text-center mb-10">
+        How's the sky looking today?
+    </h1>
+    <div class="flex justify-center gap-3 mb-8">
+        <div class="relative w-full max-w-lg">
+            <i class="fa fa-search absolute left-4 top-4 text-gray-400"></i>
+            <input
+                type="text"
+                placeholder="Search for a place..."
+                id="location_search"
+                class="w-full bg-[#24204C] rounded-xl py-3 pl-12 outline-none" autocomplete>
+        </div>
+        <button type="button"
+            class="bg-indigo-500 hover:bg-indigo-600 px-6 rounded-xl font-semibold"
+            id="search_location_button"
+            >
+            Search
+        </button>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+            <div
+                class="bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-3xl p-8 flex justify-between items-center">
+                <div id="location-details">
+                  <!--
+                    <h2 class="text-4xl font-bold mb-2">
+                        Berlin, Germany
+                    </h2>
+                    <p class="text-gray-200">
+                        Tuesday, Aug 5, 2025
+                    </p>
+                 -->   
+                </div>
+                <div class="text-center" id="temp-details">
+                <!--
+                    <i class="fa-solid fa-sun text-yellow-300 text-5xl mb-4"></i>
+                    <h1 class="text-7xl font-bold">
+                        20°
+                    </h1>
+                -->
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="bg-[#1D1B4B] rounded-xl p-5">
+                    <p class="text-gray-400">Feels Like</p>
+                    <h3 class="text-3xl mt-2" id="feels-like"></h3>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-5">
+                    <p class="text-gray-400">Humidity</p>
+                    <h3 class="text-3xl mt-2" id="humidity"></h3>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-5">
+                    <p class="text-gray-400">Wind</p>
+                    <h3 class="text-3xl mt-2" id="wind"></h3>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-5">
+                    <p class="text-gray-400">Precipitation</p>
+                    <h3 class="text-3xl mt-2" id="precipitation"></h3>
+                </div>
+            </div>
+            <h3 class="mt-10 text-xl font-semibold mb-4">
+                Daily Forecast
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Tue</p>
+                    <i class="fa-solid fa-cloud-rain text-3xl my-4"></i>
+                    <p>20° / 14°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Wed</p>
+                    <i class="fa-solid fa-cloud-showers-heavy text-3xl my-4"></i>
+                    <p>21° / 15°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Thu</p>
+                    <i class="fa-solid fa-sun text-yellow-300 text-3xl my-4"></i>
+                    <p>24° / 14°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Fri</p>
+                    <i class="fa-solid fa-cloud-sun text-3xl my-4"></i>
+                    <p>25° / 13°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Sat</p>
+                    <i class="fa-solid fa-bolt text-yellow-300 text-3xl my-4"></i>
+                    <p>21° / 15°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Sun</p>
+                    <i class="fa-solid fa-cloud text-3xl my-4"></i>
+                    <p>25° / 16°</p>
+                </div>
+                <div class="bg-[#1D1B4B] rounded-xl p-4 text-center">
+                    <p>Mon</p>
+                    <i class="fa-solid fa-wind text-3xl my-4"></i>
+                    <p>24° / 15°</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-[#1D1B4B] rounded-3xl p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-bold text-xl">
+                    Hourly Forecast
+                </h3>
+                <button class="bg-[#2C295F] px-4 py-2 rounded-lg">
+                    Tuesday ▼
+                </button>
+            </div>
+            <div class="space-y-4" id="hourly-weather">
+            
+            </div>
+        </div>
+    </div>
+</div>
 
-  Switch to Imperial/Metric
-
-  Temperature
-
-  Celsius (°C)
-  Fahrenheit (°F)
-
-  Wind Speed
-
-  km/h
-  mph
-
-  Precipitation
-
-  Millimeters (mm)
-  Inches (in)
-
-  How's the sky looking today?
-
-  Search for a city, e.g., New York
-  Search
-
-  Feels like
-  <!-- Insert temperature here -->
-
-  Humidity
-  <!-- Insert humidity here -->
-
-  Wind
-  <!-- Insert wind here -->   
-  
-  Precipitation
-  <!-- Insert precipitation here -->
-
-  Daily forecast
-  <!-- Insert daily forecast for the next 7 days here -->
-
-  Hourly forecast
-  <!-- Insert hourly forecast for the selected day here -->
-
-  <footer class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </footer>
+<script src="weather.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </body>
 </html>
+
+ 
+
+  

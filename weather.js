@@ -1,5 +1,5 @@
 const API_KEY = "3a9f3cc20c474817841172658262806";
-const API_URL = "http://api.weatherapi.com/v1/forecast.json";
+const API_URL = "https://api.weatherapi.com/v1/forecast.json";
 let locationInput = document.getElementById("location_search");
 let locationButton = document.getElementById("search_location_button");
 let locationDetails = document.getElementById("location-details");
@@ -5663,6 +5663,10 @@ function displayHourlyWeather(){
         </div>`;
     }
     hourlyWeatherDetails.innerHTML = hourlyResultList;
+}
+
+function dailyWeather(){
+    
 }
 loadDefaultWeather();
 
