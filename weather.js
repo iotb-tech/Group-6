@@ -8,7 +8,10 @@ let feelsLikeDetails = document.getElementById("feels-like");
 let humidityDetails = document.getElementById("humidity");
 let windDetails = document.getElementById("wind");
 let precipitationDetails = document.getElementById("precipitation");
+let hourlyWeatherDetails = document.getElementById("hourly-weather");
 let result;
+let hourlyResult;
+let hourlyResultList;
 
 locationButton.addEventListener("click", () => {
     searchLocationData(locationInput.value);
@@ -17,8 +20,8 @@ locationButton.addEventListener("click", () => {
 
 
 
-/*
-let result = {
+
+let localResult = {
    "location": {
        "name": "Paris",
        "region": "Ile-de-France",
@@ -5567,21 +5570,21 @@ let result = {
        ]
    }
 };
-*/
+
 
 async function loadDefaultWeather(){
     let currentLocation;
-   navigator.geolocation.getCurrentPosition((position)=> {
-       currentLocation = `${position.coords.latitude},${position.coords.longitude}`; 
-        searchLocationData(currentLocation);
-    });
-   
+   navigator.geolocation.getCurrentPosition( (position)=> {
+       currentLocation = `${position.coords.latitude},${position.coords.longitude}` || localStorage.getItem("default_location");
+       localStorage.setItem("default_location",currentLocation); 
+       searchLocationData(currentLocation);
+    }
+);
 }
 
 async function searchLocationData(location){
 
    try{
-
       let response = await fetch(API_URL+"?key="+API_KEY+"&q="+location+"&days="+5);
 
       if(!response.ok){
@@ -5594,16 +5597,27 @@ async function searchLocationData(location){
         displayLocationInformation();
         displayTempInformation();
         displayFeelsLikeDetails();
+        displayHourlyWeather();
        }else{
             throw new Error(`Error displaying location weather`);
        }
 
-
-
    }catch(error){
-
-      alert(error);
+        alert(error);
+        loadOfflineDetails();
    }
+
+}
+
+function loadOfflineDetails(){
+
+    result = localResult;
+    if(result){
+        displayLocationInformation();
+        displayTempInformation();
+        displayFeelsLikeDetails();
+        displayHourlyWeather();
+    }
 
 }
 
@@ -5635,6 +5649,21 @@ function displayFeelsLikeDetails(){
     precipitationDetails.innerText = result.current.precip_mm + "mm";
 }
 
+function displayHourlyWeather(){
+    hourlyResult = result.forecast.forecastday[0].hour;
+    hourlyResultList = "";
+    for(let i = 0; i <= 6; i++){
+        let currentTime = hourlyResult[i].time.split(" ")[1];
+        //console.log(currentHour);
+        
+        hourlyResultList += `
+        <div class="bg-[#2C295F] rounded-lg p-4 flex justify-between">
+            <span><i class="fa-solid fa-cloud mr-2"></i>${currentTime}</span>
+            <span>${hourlyResult[i].temp_c}°</span>
+        </div>`;
+    }
+    hourlyWeatherDetails.innerHTML = hourlyResultList;
+}
 loadDefaultWeather();
 
 //        <i class="fa-solid fa-sun text-yellow-300 text-5xl mb-4"></i>
